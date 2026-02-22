@@ -3,8 +3,8 @@
 This repository contains a full analytical report of an A/B test evaluating a new payment mechanism.
 
 The experiment compares:
-- **Group A** — baseline payment flow (control)
-- **Group B** — new payment flow (treatment)
+- **Group A** - baseline payment flow (control)
+- **Group B** - new payment flow (treatment)
 
 The goal is to determine whether the new payment mechanism should be rolled out to all users.
 
@@ -25,10 +25,10 @@ In this case:
 
 The analysis is based on four CSV files:
 
-- `groups.csv` — user assignment to A/B groups  
-- `groups_add.csv` — additional users received 2 days later  
-- `active_studs.csv` — users active during experiment days  
-- `checks.csv` — user payments during experiment days  
+- `groups.csv` - user assignment to A/B groups  
+- `groups_add.csv` - additional users received 2 days later  
+- `active_studs.csv` - users active during experiment days  
+- `checks.csv` - user payments during experiment days  
 
 All preprocessing, validation, and merging steps are documented in the notebook.
 
