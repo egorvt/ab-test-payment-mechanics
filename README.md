@@ -1,71 +1,58 @@
-# A/B Test: Payment Mechanics Experiment
+A/B Test: Payment Mechanics Experiment
+======================================
 
-This repository contains a full analytical report of an A/B test evaluating a new payment mechanism.
+The A/B test evaluates a new payment mechanism. Group A represents the baseline control flow, and Group B represents the new treatment flow. The stated objective is to determine the viability of a platform-wide rollout based on revenue impact and statistical significance.
 
-The experiment compares:
-- **Group A** - baseline payment flow (control)
-- **Group B** - new payment flow (treatment)
+Methodological Assessment
+-------------------------
 
-The goal is to determine whether the new payment mechanism should be rolled out to all users.
+The original analytical design contained critical methodological errors. The initial dataset merging excluded non-converting users, artificially inflating average metrics and invalidating the conversion rate. A rigorous evaluation mandates an Intention-to-Treat protocol. All randomized subjects must remain in the dataset to preserve causal integrity.
 
----
+Input Data
+----------
 
-## Experiment Overview
+The analysis utilizes four comma-separated value files:
 
-One of the key responsibilities of a product analyst is to correctly design and evaluate experiments.
+*   groups.csv: Baseline user assignment.
+    
+*   groups\_add.csv: Supplemental user assignment.
+    
+*   checks.csv: Transaction records.
+    
+*   active\_studs.csv: Platform activity logs.
+    
 
-In this case:
-- The treatment group was exposed to a new payment flow.
-- The control group retained the original payment flow.
-- We analyze revenue impact, statistical significance, and business relevance.
+Metrics Analyzed
+----------------
 
----
+The evaluation relies on three metrics to isolate acquisition efficiency from transaction magnitude:
 
-## Input Data
+*   **Conversion Rate**: The binary probability of transaction execution.
+    
+*   **ARPPU**: The mean transaction value of converting users.
+    
+*   **ARPU**: The mean revenue generated across the entire cohort.
+    
 
-The analysis is based on four CSV files:
+Statistical Approach
+--------------------
 
-- `groups.csv` - user assignment to A/B groups  
-- `groups_add.csv` - additional users received 2 days later  
-- `active_studs.csv` - users active during experiment days  
-- `checks.csv` - user payments during experiment days  
+Revenue distributions consistently exhibit heavy right-skewness. Parametric assumptions are mathematically invalid for this dataset.
 
-All preprocessing, validation, and merging steps are documented in the notebook.
+*   **Chi-Square Test**: Applied to evaluate frequency discrepancies in the binary conversion rate.
+    
+*   **Bootstrap Resampling**: Applied to construct empirical distributions for ARPU and ARPPU. This method generates 95% confidence intervals reflecting true variance without relying on theoretical normality.
+    
 
----
+Conclusions
+-----------
 
-## Metrics Analyzed
+The empirical evidence isolates the financial impact strictly to existing spenders.
 
-The following metrics were evaluated:
+The Chi-Square test for conversion rate yields a p-value of 1.0000. The treatment mechanism exerted zero causal influence on user acquisition.
 
-- **ARPU (Average Revenue Per User)**
-- **Median revenue**
-- **Conversion rate**
-- **ARPPU (Average Revenue Per Paying User)**
-- Distribution analysis (skewness, outliers)
-- Absolute and relative revenue uplift
+The ARPPU 95% confidence interval spans 68.0671 to 409.2956. The intervention increased the transaction size for users predisposed to convert.
 
-Both statistical and economic significance are assessed.
+The ARPU 95% confidence interval spans -0.1450 to 3.6256. The revenue gains extracted from the paying subset fail to elevate the average revenue of the entire assigned population.
 
----
-
-## Statistical Approach
-
-Because revenue distributions are typically right-skewed and sample sizes may differ, we apply:
-
-- Normality testing (Shapiro–Wilk)
-- Permutation test for p-value estimation
-- Bootstrap (percentile method) for confidence intervals
-- Holm–Bonferroni correction for multiple comparisons
-
-This approach avoids strong parametric assumptions and provides robust inference.
-
----
-
-## Key Questions Answered
-
-- Which metrics are relevant and why?
-- Are there differences between groups?
-- Are the differences statistically significant?
-- Are they economically meaningful?
-- Should the new payment flow be rolled out?
+The intervention does not increase overall average revenue per user. The new payment flow lacks empirical justification for a platform-wide rollout.
