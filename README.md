@@ -45,9 +45,9 @@ Key Findings
 
 *   **Conversion Rate**: The Chi-Square test yielded a p-value of 1.0000, establishing that the new payment flow exerted zero causal influence on user acquisition.
     
-*   **ARPPU**: The 95% confidence interval \[68.0671, 409.2956\] strictly excludes zero. The intervention significantly increased the transaction size for users already predisposed to convert.
+*   **ARPPU**: The 95% confidence interval \[74.4360, 411.4591\] strictly excludes zero. The intervention significantly increased the transaction size for users already predisposed to convert.
     
-*   **ARPU**: The 95% confidence interval \[-0.1450, 3.6256\] crosses zero. The revenue gains extracted from the paying subset are mathematically insufficient to elevate the average revenue of the entire assigned population.
+*   **ARPU**: The 95% confidence interval \[-0.1464, 3.5922\] crosses zero. The revenue gains extracted from the paying subset are mathematically insufficient to elevate the average revenue of the entire assigned population.
     
 
 Business Recommendation
