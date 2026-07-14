@@ -1,15 +1,15 @@
-A/B Test: Payment Mechanics Experiment
-======================================
+**A/B Test: Payment Mechanics Experiment**
+==========================================
 
 The A/B test evaluates a new payment mechanism. Group A represents the baseline control flow, and Group B represents the new treatment flow. The stated objective is to determine the viability of a platform-wide rollout based on revenue impact and statistical significance.
 
-Methodological Assessment
--------------------------
+**Methodological Assessment**
+-----------------------------
 
 The original analytical design contained critical methodological errors. The initial dataset merging excluded non-converting users, artificially inflating average metrics and invalidating the conversion rate. A rigorous evaluation mandates an Intention-to-Treat protocol. All randomized subjects must remain in the dataset to preserve causal integrity.
 
-Input Data
-----------
+**Input Data**
+--------------
 
 The analysis utilizes four comma-separated value files:
 
@@ -22,8 +22,8 @@ The analysis utilizes four comma-separated value files:
 *   active\_studs.csv: Platform activity logs.
     
 
-Metrics Analyzed
-----------------
+**Metrics Analyzed**
+--------------------
 
 The evaluation relies on three metrics to isolate acquisition efficiency from transaction magnitude:
 
@@ -34,8 +34,8 @@ The evaluation relies on three metrics to isolate acquisition efficiency from tr
 *   **ARPU**: The mean revenue generated across the entire cohort.
     
 
-Statistical Approach
---------------------
+**Statistical Approach**
+------------------------
 
 Revenue distributions consistently exhibit heavy right-skewness. Parametric assumptions are mathematically invalid for this dataset.
 
@@ -44,8 +44,8 @@ Revenue distributions consistently exhibit heavy right-skewness. Parametric assu
 *   **Bootstrap Resampling**: Applied to construct empirical distributions for ARPU and ARPPU. This method generates 95% confidence intervals reflecting true variance without relying on theoretical normality.
     
 
-Conclusions
------------
+**Conclusions**
+---------------
 
 The empirical evidence isolates the financial impact strictly to existing spenders.
 
