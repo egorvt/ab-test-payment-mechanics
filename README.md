@@ -1,58 +1,56 @@
-**A/B Test: Payment Mechanics Experiment**
-==========================================
+A/B Test: Payment Mechanics Experiment
+======================================
 
-The A/B test evaluates a new payment mechanism. Group A represents the baseline control flow, and Group B represents the new treatment flow. The stated objective is to determine the viability of a platform-wide rollout based on revenue impact and statistical significance.
+Project Overview
+----------------
 
-**Methodological Assessment**
------------------------------
+This project evaluates the impact of a new payment mechanism on user conversion and revenue generation. The objective is to determine whether the treatment flow yields statistically significant improvements over the baseline control group, providing an evidence-based recommendation regarding a platform-wide rollout.
 
-The original analytical design contained critical methodological errors. The initial dataset merging excluded non-converting users, artificially inflating average metrics and invalidating the conversion rate. A rigorous evaluation mandates an Intention-to-Treat protocol. All randomized subjects must remain in the dataset to preserve causal integrity.
+Data Sources
+------------
 
-**Input Data**
---------------
+The analysis synthesizes raw experimental data from the following sources:
 
-The analysis utilizes four comma-separated value files:
-
-*   groups.csv: Baseline user assignment.
+*   groups.csv: Baseline user assignment to A/B groups.
     
-*   groups\_add.csv: Supplemental user assignment.
+*   groups\_add.csv: Supplemental user assignments.
     
-*   checks.csv: Transaction records.
+*   checks.csv: Transaction records during the experimental window.
     
-*   active\_studs.csv: Platform activity logs.
+*   active\_studs.csv: Platform activity logs utilized for telemetry validation.
     
 
-**Metrics Analyzed**
---------------------
+Tech Stack
+----------
 
-The evaluation relies on three metrics to isolate acquisition efficiency from transaction magnitude:
-
-*   **Conversion Rate**: The binary probability of transaction execution.
+*   **Language**: Python
     
-*   **ARPPU**: The mean transaction value of converting users.
-    
-*   **ARPU**: The mean revenue generated across the entire cohort.
+*   **Libraries**: pandas, numpy, scipy.stats, statsmodels
     
 
-**Statistical Approach**
-------------------------
+Methodology
+-----------
 
-Revenue distributions consistently exhibit heavy right-skewness. Parametric assumptions are mathematically invalid for this dataset.
+The evaluation relies on an Intention-to-Treat protocol, ensuring all randomized subjects remain in the dataset to preserve causal integrity. The analysis evaluates three primary metrics to isolate acquisition efficiency from transaction magnitude:
 
-*   **Chi-Square Test**: Applied to evaluate frequency discrepancies in the binary conversion rate.
+*   **Conversion Rate**: Evaluated via a Chi-Square Test for Independence to assess the binary probability of transaction execution.
     
-*   **Bootstrap Resampling**: Applied to construct empirical distributions for ARPU and ARPPU. This method generates 95% confidence intervals reflecting true variance without relying on theoretical normality.
+*   **ARPPU (Average Revenue Per Paying User)**: Evaluated via Bootstrap Resampling to assess the mean transaction value of converting users without relying on restrictive parametric assumptions.
+    
+*   **ARPU (Average Revenue Per User)**: Evaluated via Bootstrap Resampling to assess the aggregate financial impact across the entire assigned cohort.
     
 
-**Conclusions**
----------------
+Key Findings
+------------
 
-The empirical evidence isolates the financial impact strictly to existing spenders.
+*   **Conversion Rate**: The Chi-Square test yielded a p-value of 1.0000, establishing that the new payment flow exerted zero causal influence on user acquisition.
+    
+*   **ARPPU**: The 95% confidence interval \[68.0671, 409.2956\] strictly excludes zero. The intervention significantly increased the transaction size for users already predisposed to convert.
+    
+*   **ARPU**: The 95% confidence interval \[-0.1450, 3.6256\] crosses zero. The revenue gains extracted from the paying subset are mathematically insufficient to elevate the average revenue of the entire assigned population.
+    
 
-The Chi-Square test for conversion rate yields a p-value of 1.0000. The treatment mechanism exerted zero causal influence on user acquisition.
+Business Recommendation
+-----------------------
 
-The ARPPU 95% confidence interval spans 68.0671 to 409.2956. The intervention increased the transaction size for users predisposed to convert.
-
-The ARPU 95% confidence interval spans -0.1450 to 3.6256. The revenue gains extracted from the paying subset fail to elevate the average revenue of the entire assigned population.
-
-The intervention does not increase overall average revenue per user. The new payment flow lacks empirical justification for a platform-wide rollout.
+The new payment mechanics act strictly as an optimization for existing spenders and fail to expand the broader revenue base. Because the intervention does not increase overall average revenue per user, the new payment flow should not be rolled out if the primary strategic objective is top-line revenue growth across the entire customer base.
